@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.hexagon {
+  fill: none;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 960 - margin.top - margin.bottom;
+
+
+
+
+var color = d3.scale.linear()
+    .domain([0, 20])
+    .range(["white", "white"])
+    .interpolate(d3.interpolateLab);
+
+//var hexbin = d3.hexbin()
+  //  .size([width, height])
+    //.radius(20);
+
+var x = d3.scale.identity()
+    .domain([0, width]);
+
+var y = d3.scale.linear()
+    .domain([0, height])
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .tickSize(6, -height);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickSize(6, -width);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var points = [];
+d3.csv("pixel-map.csv")
+    .row(function(d) { points.push(d) })
+    .get(function(error, rows) { 
+        console.log(error);
+        console.log(points);
+        drawSVG();
+    });
+
+var radius =10,
+    offset = 0;
+    
+var circleCenterX = function(d){
+    return (d.pos_X)*2*(radius + offset) +  width/2; 
+}
+
+var textCenterX = function(d){
+    return circleCenterX(d) - (radius* 0.5); 
+}
+
+var circleCenterY = function(d){
+    return (d.pos_Y)*2*(radius + offset) +  width/2; 
+}
+
+  
+var drawSVG = function() {
+    var circles = svg.selectAll("circle")
+                          .data(points)
+                          .enter()
+                          .append("circle");
+
+    var circleAttributes = circles
+                       .attr("cx", circleCenterX)
+                       .attr("cy", circleCenterY)
+                       .attr("r", radius)
+                    .style("fill", function(d) { return "lightgrey"; });
+    
+    var texts = svg.selectAll("text")
+                .data(points)
+                .enter();
+
+    texts.append("text")
+         .text(function(d){
+                        return d.softID;
+                    })
+    .attr("x", textCenterX)
+    .attr("y", circleCenterY)
+    .attr("font-size",7)
+    .attr("font-family","sans-serif");
+
+    
+    
+    
+};
+    
+/*
+
+function hexagon(x,y,r) {
+	var x1 = x;
+	var y1 = y-r;
+	var x2 = x+(Math.cos(Math.PI/6)*r);
+	var y2 = y-(Math.sin(Math.PI/6)*r);
+	var x3 = x+(Math.cos(Math.PI/6)*r);
+	var y3 = y+(Math.sin(Math.PI/6)*r);
+	var x4 = x;
+	var y4 = y+r;
+	var x5 = x-(Math.cos(Math.PI/6)*r);
+	var y5 = y+(Math.sin(Math.PI/6)*r);
+	var x6 = x-(Math.cos(Math.PI/6)*r);
+	var y6 = y-(Math.sin(Math.PI/6)*r);
+	
+	var path = "M"+x1+" "+y1+" L"+x2+" "+y2+" L"+x3+" "+y3+" L"+x4+" "+y4+" L"+x5+" "+y5+" L"+x6+" "+y6+"z";
+	return path;
+}
+    
+
+The line SVG Path we draw
+var lineGraph = svg.selectAll("path")
+                            .data(points)
+                            .enter()
+                            .append("path")
+                            .attr("d", function(arg){
+                                return hexagon(arg.pos_X*20, arg.pos_Y*20, radius);
+                            });
+
+*/
+
+
+ 
+
+
+    
+    
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+</script>
