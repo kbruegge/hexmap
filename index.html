@@ -76,18 +76,31 @@ d3.csv("pixel-map.csv")
 var radius =10,
     offset = 0;
     
+//-------------
+//   These functions get a row from the csv and return some stuff based on that data
+// 
+//    !!! X AND Y COORDINATES FROM  THE FACT-MAP ARE SWITCHED!!!!
+//-------
 var circleCenterX = function(d){
-    return (d.pos_X)*2*(radius + offset) +  width/2; 
+    
+    return -(d.pos_Y)*2*(radius + offset) +  width/2; 
 }
 
 var textCenterX = function(d){
-    return circleCenterX(d) - (radius* 0.5); 
+    return circleCenterX(d) - (radius* 0.8); 
+}
+var textCenterY = function(d){
+    return circleCenterY(d) + (radius* 0.1); 
 }
 
 var circleCenterY = function(d){
-    return (d.pos_Y)*2*(radius + offset) +  width/2; 
+    return -(d.pos_X)*2*(radius + offset) +  width/2; 
 }
 
+var softIDtext = function(d) {
+       return d.softID;
+}
+//_-------------
   
 var drawSVG = function() {
     var circles = svg.selectAll("circle")
@@ -106,11 +119,9 @@ var drawSVG = function() {
                 .enter();
 
     texts.append("text")
-         .text(function(d){
-                        return d.softID;
-                    })
+         .text(softIDtext)
     .attr("x", textCenterX)
-    .attr("y", circleCenterY)
+    .attr("y", textCenterY)
     .attr("font-size",7)
     .attr("font-family","sans-serif");
 
