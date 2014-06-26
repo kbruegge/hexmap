@@ -1,4 +1,7 @@
 hexmap
 ======
 
-Drawing the hexagonal map of the camera using D3.js
+Drawing the  map of the FACT camera using D3.js. 
+
+Uses `tinycolors.js` for some color modifications. See https://github.com/bgrins/TinyColor
+  
