@@ -7,6 +7,16 @@ function main() {
     $('#chidbutton').click( function(){
         showchids();
     });
+    $('#colorbutton').click( function(){
+        showcolors();
+    });
+    $('#geombutton').click( function(){
+        showgeomids();
+    });
+    
+function log(message){
+    $('#debug').append('<p>' + message + '</p>');
+}
 
 var points = [];
 var radius = 10,
@@ -80,7 +90,7 @@ var textCenterX = function (d){
     return circleCenterX(d) - (radius* 0.8); 
     };
 var textCenterY = function (d){
-    return circleCenterY(d) + (radius* 0.1); 
+    return circleCenterY(d) + (radius* 0.3); 
     };
 
 var circleCenterY = function (d){
@@ -92,6 +102,9 @@ var softIDtext = function (d) {
 };
 var chIDtext = function (d) {
         return d.CHID;
+};
+var geomIDtext = function (d) {
+        return d.geom_i + ", " + d.geom_j;
 };
     
     
@@ -107,14 +120,37 @@ var drawSVG = function () {
                        .attr("cx", circleCenterX)
                        .attr("cy", circleCenterY)
                        .attr("r", radius)
-                    .style("fill", function (d) { return "lightgrey"; });
+                    .style("fill", function (d) {return "lightgrey";});
     
     showchids();
     
 };
-        
-    
+
+var colorFromId= function (number){
+    //var normalized = number/255.0
+    var color = tinycolor("#ea4040");
+    color = tinycolor.spin(color, number/1440.0 * 255.0)
+    //color = tinycolor.saturate(color, number/1440.0 * 255.0)
+    //log(color.toHexString());
+    //console.log(color.toHexString());
+    return color.toHexString();           
+}
 //------- update the drawn text
+
+function showgeomids(){
+    d3.selectAll("#textid").remove();
+    var texts = svg.selectAll("textIds")
+                .data(points);
+    log("showing geom ids")
+    texts.enter().append("text")
+        .text(geomIDtext);
+    
+    texts.attr("x", textCenterX)
+        .attr("y", textCenterY)
+        .attr("font-size", 7)
+        .attr("font-family", "sans-serif")
+        .attr("id","textid");    
+}
 function showchids(){
     d3.selectAll("#textid").remove();
     var texts = svg.selectAll("textIds")
@@ -130,8 +166,19 @@ function showchids(){
         .attr("id","textid");
 }
     
+function showcolors(){
+    //log("button pressed")
+    var circles = svg.selectAll("circle");
+    var circleAttributes = circles.style("fill", function (d) {return colorFromId(d.CHID);});  
+}
+
+function showGreyScale(){
+    var circles = svg.selectAll("circle");
+    var circleAttributes = circles.style("fill", function (d) {return colorFromId(d.softID);});
+}
 function showsoftids(){
     //console.log(d3.selectAll("#textid"));
+    
     d3.selectAll("#textid").remove();
     
     var texts = svg.selectAll("textIds")
