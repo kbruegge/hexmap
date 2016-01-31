@@ -1,10 +1,15 @@
-console.log("running main");
-require('zeptojs');
-const map = require("./map.js");
-console.log(map)
+const $ = require('zeptojs');
+const map = require('./map.js');
 
-$( document ).ready( init );
-function init(){
-    map.create_hexmap();
-    $( "#colorbutton" ).click(map.update_hexmap);
+$(document).ready(init);
+
+function init() {
+  var name = 'fact_map';
+  var size = 550;
+  var radius = 5;
+  map.createHexmap(name, size, radius);
+
+  $('#colorbutton').click(function () {
+      map.updateHexmap(name);
+    });
 }

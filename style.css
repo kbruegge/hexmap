@@ -1,33 +1,10 @@
-
-.axis text {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.hexagon {
-  fill: none;
-  stroke: #000;
-  stroke-width: .5px;
-}
 .content {
     margin: 2em;
     background-color: #fff;
 }
 
-#debug {
-    background-color: #d9dfe2;
-    color: #b50606;
-    height: 200px;
-    overflow: scroll;
-}
-
-div.grid-box{
+.grid-box{
     background-color: #fff;
-    margin-bottom: 2em;
+    margin: 2em;
+    padding: 1em;
 }
