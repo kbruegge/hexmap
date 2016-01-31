@@ -1,61 +1,13 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-
     <title>Fact Map</title>
-<style>
-
-.axis text {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.hexagon {
-  fill: none;
-  stroke: #000;
-  stroke-width: .5px;
-}
-.content {
-    margin: 2em;
-    background-color: #fff;
-}
-
-#debug {
-    background-color: #d9dfe2;
-    color: #b50606;
-    height: 200px;
-    overflow: scroll;
-}
-
-div.grid-box{
-    background-color: #fff;
-    margin-bottom: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="tinycolor.js"></script>
-<script src="map.js" ></script>
-   <script type="text/javascript">
-        $( document ).ready( init );
-       function init(){
-            hex();
-            $( "#colorbutton" ).click(update_hex);
-       }
-
-
-    </script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="bundle.js" ></script>
 </head>
-<body class="content">
 
+<body class="content">
  <h1> Map of the Fact Camera</h1>
         <h3>SVG display</h3>
         <p>Use the buttons to switch displayed IDs</p>
@@ -66,10 +18,5 @@ div.grid-box{
                       <p> Colors each pixel according its ID.</p>
                       <button id="colorbutton" class="pure-button">Show random data</button>
                     </div>
-                    <div id="debug">
-                        <p>DEBUG------------</p>
-                    </div>
             </div>
-
-
 </body>

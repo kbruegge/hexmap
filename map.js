@@ -1,3 +1,5 @@
+const d3 = require('d3');
+const d3_scale = require("d3-scale");
 function hex() {
   //get three variables, margin, width, height. width and height will be the dimensions of the svg container
   //this svg will be square.
@@ -43,12 +45,11 @@ function update_hex(){
   // console.log("button clicked");
   var data =  d3.range(1440).map(d3.random.normal(2,2));
 
-  var min_data = Math.min(...data);
-  var max_data = Math.max(...data);
+  var min_data = d3.min(data);
+  var max_data = d3.max(data);
 
-  var color = d3.scale.linear()
-    .domain([min_data, max_data])
-    .range(["orange", "steelblue"]);
+  var color = d3_scale.scaleInferno()
+    .domain([min_data, max_data]);
 
   svg = d3.select("#main_hexmap");
   var circles = svg.selectAll("circle")
@@ -57,6 +58,7 @@ function update_hex(){
                           return color(d);
                         });
 }
+module.exports={create_hexmap:hex, update_hexmap:update_hex }
 // main();
 
   // var color = d3.scale.linear()

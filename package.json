@@ -1,0 +1,31 @@
+{
+  "name": "hexmap",
+  "version": "0.0.1",
+  "description": "Use d3 to diaply the camera of the FACT telescope",
+  "main": "main.js",
+  "dependencies": {
+    "d3": "^3.5.14",
+    "d3-scale": "^0.5.3",
+    "zeptojs": "^1.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mackaiver/hexmap.git"
+  },
+  "keywords": [
+    "d3",
+    "cherenkov",
+    "gamma",
+    "FACT"
+  ],
+  "author": "Kai Brügge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mackaiver/hexmap/issues"
+  },
+  "homepage": "https://github.com/mackaiver/hexmap#readme"
+}
