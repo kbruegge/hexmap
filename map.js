@@ -1,61 +1,63 @@
 function hex() {
-  function log(message){
-      $('#debug').append('<p>' + message + '</p>');
-  }
-
-
   //get three variables, margin, width, height. width and height will be the dimensions of the svg container
+  //this svg will be square.
+  var size = 400;
+
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 960 - margin.left - margin.right,
-        height = 960 - margin.top - margin.bottom;
+          width = size - margin.left - margin.right,
+          height = size - margin.top - margin.bottom;
 
-var svg = d3.select("body")
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height);
-var radius = 10;
-var offset_x  = 0;
-var offset_y  = 0;
-d3.csv("./pixel_positions.csv")
-    .row(function (csv_row) {
-        // console.log(csv_row);
-        // center = pixelCenter(csv_row, radius=10);
-        //now paint stuff in here
-        // console.log(center);
-        // points.append(csv_row);
-        offset_x = Math.max(offset_x, csv_row.pos_X);
-        offset_y = Math.max(offset_y, csv_row.pos_Y);
-        return csv_row;
-    })
-    .get(function(error, rows) {
-        // console.log(error);
-        // console.log(rows);
+  var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "hexmap")
+            .attr("id", "main_hexmap");
 
-        var circles = svg.selectAll("circle")
-                              .data(rows)
-                            .enter()
-                              .append("svg:circle")
-                              .attr("cx", function (d, i){
-                                return d.pos_X*2*radius + offset_x;
-                              })
-                              .attr("cy",  function (d, i){
-                                return d.pos_Y*2*radius + offset_y;
-                              });
+    var radius = 4;
+    d3.csv("./pixel_positions.csv")
+        .row(function (csv_row) {
+            return csv_row;
+        })
+        .get(function(error, rows) {
+            var offset_x = width/2.0;
+            var offset_y =height/2.0;
+            var circles = svg.selectAll("circle")
+                                  .data(rows)
+                                .enter()
+                                  .append("svg:circle")
+                                  .attr("cx", function (d, i){
+                                    return d.pos_X*2*radius + offset_x;
+                                  })
+                                  .attr("cy",  function (d, i){
+                                    return d.pos_Y*2*radius + offset_y;
+                                  });
 
-        var circleAttributes = circles
-                                      .attr("r", radius)
-                                      .style("fill", function (d) {return "#858587";});
-});
+            var circleAttributes = circles
+                                          .attr("r", radius)
+                                          .style("fill", function (d) {return "#858587";});
+        });
+}
 
+function update_hex(){
+  // console.log("button clicked");
+  var data =  d3.range(1440).map(d3.random.normal(2,2));
 
+  var min_data = Math.min(...data);
+  var max_data = Math.max(...data);
 
+  var color = d3.scale.linear()
+    .domain([min_data, max_data])
+    .range(["orange", "steelblue"]);
 
-
-  var pixelCenter = function(d, radius){
-      x = -d.pos_Y * radius;
-      y = -d.pos_X * radius;
-      return {id : d.id,  x:x, y:y };
-  };
+  svg = d3.select("#main_hexmap");
+  var circles = svg.selectAll("circle")
+                        .data(data)
+                        .style("fill", function (d) {
+                          return color(d);
+                        });
+}
+// main();
 
   // var color = d3.scale.linear()
   //     .domain([0, 20])
@@ -138,6 +140,3 @@ d3.csv("./pixel_positions.csv")
   //         .attr("font-family", "sans-serif")
   //         .attr("id","textid");
   // }
-
-}
-// main();

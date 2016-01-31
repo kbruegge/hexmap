@@ -48,7 +48,10 @@ div.grid-box{
         $( document ).ready( init );
        function init(){
             hex();
+            $( "#colorbutton" ).click(update_hex);
        }
+
+
     </script>
 </head>
 <body class="content">
@@ -61,7 +64,7 @@ div.grid-box{
                     <div class="grid-box">
                       <h4> Show Colors</h4>
                       <p> Colors each pixel according its ID.</p>
-                      <button id="colorbutton" class="pure-button">Show Colors</button>
+                      <button id="colorbutton" class="pure-button">Show random data</button>
                     </div>
                     <div id="debug">
                         <p>DEBUG------------</p>
