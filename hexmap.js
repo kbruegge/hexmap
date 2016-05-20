@@ -41,7 +41,7 @@ function Hexmap(parentID, size, radius) {
                                 .attr('d', function (d, i) {
                                   var xp = d.pos_X * 2 * radius + offsetX;
                                   var yp = d.pos_Y * 2 * radius + offsetY;
-                                  hexagonData = [
+                                  var hexagonData = [
                                     { x: radius + xp,   y: yp },
                                     { x: radius / 2 + xp,  y: radius * h + yp },
                                     { x: -radius / 2 + xp,  y: radius * h + yp },
