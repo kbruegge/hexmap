@@ -1,14 +1,15 @@
 {
   "name": "hexmap",
-  "version": "0.0.1",
-  "description": "Use d3 to diaply the camera of the FACT telescope",
+  "version": "0.1.0",
+  "description": "Use D3.js to display the camera of the FACT telescope",
   "main": "main.js",
   "dependencies": {
-    "d3": "^3.5.14",
-    "d3-scale": "^0.5.3",
+    "d3": "^3.5.17",
+    "d3-scale": "^0.7"
+  },
+  "devDependencies": {
     "zeptojs": "^1.1.4"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,10 +21,14 @@
     "d3",
     "cherenkov",
     "gamma",
-    "FACT"
+    "FACT",
+    "science",
+    "IACT",
+    "plotting",
+    "hexagon"
   ],
   "author": "Kai Brügge",
-  "license": "ISC",
+  "license": "Beerware",
   "bugs": {
     "url": "https://github.com/mackaiver/hexmap/issues"
   },
