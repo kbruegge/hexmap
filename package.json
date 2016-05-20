@@ -2,7 +2,7 @@
   "name": "hexmap",
   "version": "0.1.0",
   "description": "Use D3.js to display the camera of the FACT telescope",
-  "main": "main.js",
+  "main": "hexmap.js",
   "dependencies": {
     "d3": "^3.5.17",
     "d3-scale": "^0.7"
@@ -32,5 +32,6 @@
   "bugs": {
     "url": "https://github.com/mackaiver/hexmap/issues"
   },
+  "readmeFilename": "README.md",
   "homepage": "https://github.com/mackaiver/hexmap#readme"
 }

@@ -1,7 +1,8 @@
+"use strict"
+
 const d3 = require('d3');
 const d3_scale = require('d3-scale');
 
-module.exports = Hexmap;
 function Hexmap(parentID, size, radius) {
   //Get three variables, margin, width, height. width and height will be the dimensions of the svg container
   //this svg will be square.
@@ -78,3 +79,5 @@ function Hexmap(parentID, size, radius) {
     }
   }
 }
+
+module.exports = Hexmap;
