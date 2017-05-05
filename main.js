@@ -12,7 +12,7 @@ function init() {
   $("#colorbutton").click(
     $.proxy(function (){
       var data =  d3.range(1440).map(d3.random.normal(2, 2));
-      this.camera.update(data, duration = 0);
+      this.camera.update(data, duration = 500);
     },this)
   );
 }

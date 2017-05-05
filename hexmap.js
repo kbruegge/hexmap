@@ -8,7 +8,7 @@ function Hexmap(parentID, size, radius, chid=true) {
   //this svg will be square.
   this.parentID = parentID;
 
-  var   margin = { top: 20, right: 40, bottom: 20, left: 20 },
+  var   margin = { top: 20, right: 20, bottom: 20, left: 20 },
           width = size - margin.left - margin.right,
           height = size - margin.top - margin.bottom;
 
@@ -55,7 +55,10 @@ function Hexmap(parentID, size, radius, chid=true) {
                                   ];
                                   return line(hexagonData);
                                 })
-                                .style('fill', function (d) {return '#858587';});
+                                .style('fill', '#888888')
+                                .style('stroke', '#888888')
+                                .style('stroke-width', '1')
+                                .style('shape-rendering', 'geometricPrecision');
       });
 
   this.update = function updateHexmap(data, duration = 150, scale=d3_scale.scaleInferno()) {
@@ -65,10 +68,13 @@ function Hexmap(parentID, size, radius, chid=true) {
     var color = scale.domain([min_data, max_data]);
 
     svg = d3.select('#' + this.parentID + ' svg');
-    if (duration == 0){
+    if (duration === 0){
       var circles = svg.selectAll('path')
                             .data(data)
                             .style('fill', function (d) {
+                              return color(d);
+                            })
+                            .style('stroke', function (d) {
                               return color(d);
                             });
 
@@ -78,6 +84,9 @@ function Hexmap(parentID, size, radius, chid=true) {
                             .transition()
                             .duration(duration)
                             .style('fill', function (d) {
+                              return color(d);
+                            })
+                            .style('stroke', function (d) {
                               return color(d);
                             });
     }
