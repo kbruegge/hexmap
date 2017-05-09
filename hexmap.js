@@ -27,7 +27,6 @@ function Hexmap(parentID, size, radius, chid=true) {
     pixel_positions = ids.sorted_chid
   }
 
-  console.log(pixel_positions)
   var offsetX = width / 2.0;
   var offsetY = height / 2.0;
 
