@@ -1,6 +1,6 @@
 {
   "name": "hexmap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use D3.js to display the camera of the FACT telescope",
   "main": "hexmap.js",
   "dependencies": {
